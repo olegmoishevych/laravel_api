@@ -30,9 +30,22 @@ Implements full CRUD with modern PHP 8.2+ features, DTOs, repository pattern, an
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/laravel-api.git
+git clone 
 cd laravel-api
 
 composer install
 cp .env.example .env
 php artisan key:generate
+
+---
+
+## 🐳 Docker Setup (Recommended)
+
+This project includes a `Dockerfile` and `docker-compose.yml` for quick startup.
+
+### ▶️ Run the app and PostgreSQL with one command:
+
+```bash
+docker-compose up 
+
+for migrations -> docker-compose exec app php artisan migrate

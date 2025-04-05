@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: laravel_app
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/var/www
+        depends_on:
+            db:
+                condition: service_healthy
+        restart: unless-stopped
+
+    db:
+        image: postgres:15
+        container_name: laravel_postgres
+        environment:
+            POSTGRES_DB: laravel_api
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+        ports:
+            - "5432:5432"
+        volumes:
+            - pg_data:/var/lib/postgresql/data
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U root -d laravel_api"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+volumes:
+    pg_data:
