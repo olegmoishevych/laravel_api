@@ -20,12 +20,10 @@ class DTOValidator
             foreach ($property->getAttributes() as $attribute) {
                 $attr = $attribute->newInstance();
 
-                // Проверка на обязательность
                 if ($attr instanceof Required && ($value === null || $value === '')) {
                     throw new InvalidArgumentException("Field '{$name}' is required.");
                 }
 
-                // Проверка типа
                 if ($attr instanceof Type) {
                     $expected = $attr->type;
                     $actual = gettype($value);
